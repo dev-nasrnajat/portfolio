@@ -5,7 +5,7 @@
     "routes": [
       { "handle": "filesystem" },
       { "src": "/html/(.*)", "dest": "/html/$1" }, 
-      { "src": "/(.*)", "dest": "/index.html" }
+      { "src": "/(.*)", "dest": "/html/index.html" }
     ]
   }
   
