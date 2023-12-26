@@ -1,9 +1,11 @@
-
-  {
-    "redirects": [
-      {
-        "source": "/(.*)",
-        "destination": "/html/index.html"
-      }
+{
+    "version": 2,
+    "builds": [
+    ],
+    "routes": [
+      { "handle": "filesystem" },
+      { "src": "/html/(.*)", "dest": "/html/$1" }, 
+      { "src": "/(.*)", "dest": "/index.html" }
     ]
   }
+  
