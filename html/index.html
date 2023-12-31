@@ -45,6 +45,172 @@ rel="stylesheet"
 
 
 
+    @mixin aspect-ratio($width, $height) {
+      position: relative;
+        
+      &:before {
+        display: block;
+        content: "";
+        width: 100%;
+        padding-top: ($height / $width) * 100%;
+      }
+        
+      > img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+      }
+    }
+    
+    
+    section {
+        background: #F4F4F4;
+        padding: 50px 0;
+    }
+    
+    .container {
+        max-width: 1044px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+    
+    .carousel {
+        display: block;
+        text-align: left;
+        position: relative;
+        margin-bottom: 22px;
+        
+        > input {
+            clip: rect(1px, 1px, 1px, 1px);
+            clip-path: inset(50%);
+            height: 1px;
+            width: 1px;
+            margin: -1px;
+            overflow: hidden;
+            padding: 0;
+            position: absolute;
+            
+            &:nth-of-type(6):checked ~ .carousel__slides .carousel__slide:first-of-type { margin-left: -500%; }
+            &:nth-of-type(5):checked ~ .carousel__slides .carousel__slide:first-of-type { margin-left: -400%; }
+            &:nth-of-type(4):checked ~ .carousel__slides .carousel__slide:first-of-type { margin-left: -300%; }
+            &:nth-of-type(3):checked ~ .carousel__slides .carousel__slide:first-of-type { margin-left: -200%; }
+            &:nth-of-type(2):checked ~ .carousel__slides .carousel__slide:first-of-type { margin-left: -100%; }
+            &:nth-of-type(1):checked ~ .carousel__slides .carousel__slide:first-of-type { margin-left: 0%; }
+            
+            &:nth-of-type(1):checked ~ .carousel__thumbnails li:nth-of-type(1) { box-shadow: 0px 0px 0px 5px rgba(0,0,255,0.5); }
+            &:nth-of-type(2):checked ~ .carousel__thumbnails li:nth-of-type(2) { box-shadow: 0px 0px 0px 5px rgba(0,0,255,0.5); }
+            &:nth-of-type(3):checked ~ .carousel__thumbnails li:nth-of-type(3) { box-shadow: 0px 0px 0px 5px rgba(0,0,255,0.5); }
+            &:nth-of-type(4):checked ~ .carousel__thumbnails li:nth-of-type(4) { box-shadow: 0px 0px 0px 5px rgba(0,0,255,0.5); }
+            &:nth-of-type(5):checked ~ .carousel__thumbnails li:nth-of-type(5) { box-shadow: 0px 0px 0px 5px rgba(0,0,255,0.5); }
+            &:nth-of-type(6):checked ~ .carousel__thumbnails li:nth-of-type(6) { box-shadow: 0px 0px 0px 5px rgba(0,0,255,0.5); }
+        }
+    }
+    
+    .carousel__slides {
+        position: relative;
+        z-index: 1;
+        padding: 0;
+        margin: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        box-sizing: border-box;
+        display: flex;
+    }
+    
+    .carousel__slide {
+        position: relative;
+        display: block;
+        flex: 1 0 100%;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        transition: all 300ms ease-out;
+        vertical-align: top;
+        box-sizing: border-box;
+        white-space: normal;
+        
+        figure {
+            display: flex;
+            margin: 0;
+        }
+        
+        div {
+            @include aspect-ratio(3, 2);
+            width: 100%;
+        }
+        
+        img {
+            display: block;
+            flex: 1 1 auto;
+            object-fit: cover;
+        }
+        
+        figcaption {
+            align-self: flex-end;
+            padding: 20px 20px 0 20px;
+            flex: 0 0 auto;
+            width: 25%;
+            min-width: 150px;
+        }
+        
+        .credit {
+            margin-top: 1rem;
+            color: rgba(0, 0, 0, 0.5);
+            display: block;        
+        }
+        
+        &.scrollable {
+            overflow-y: scroll;
+        }
+    }
+    
+    .carousel__thumbnails {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        
+        margin: 0 -10px;
+        
+        .carousel__slides + & {
+            margin-top: 20px;
+        }
+        
+        li {        
+            flex: 1 1 auto;
+            max-width: calc((100% / 6) - 20px);  
+            margin: 0 10px;
+            transition: all 300ms ease-in-out;
+        }
+        
+        label {
+            display: block;
+            @include aspect-ratio(1,1);
+            
+                      
+            &:hover,
+            &:focus {
+                cursor: pointer;
+                
+                img {
+                    box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.25);
+                    transition: all 300ms ease-in-out;
+                }
+            }
+        }
+        
+        img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
 
 
 
@@ -134,7 +300,7 @@ rel="stylesheet"
       <select class="custom-select d-block my-2" id="change-page">
         <option value="">Choose Page</option>
         <option value="index">Topbar</option>
-        <option value="blog-topbar">Blog (Topbar)</option>
+        <!-- <option value="blog-topbar">Blog (Topbar)</option> -->
         <option value="index-2">Minibar</option>
         <option value="blog-minibar">Blog (Minibar)</option>
       </select>
@@ -166,9 +332,9 @@ rel="stylesheet"
             <li class="nav-item">
               <a href="#portfolio" class="nav-link" data-animate="scrolling">Portfolio</a>
             </li>
-            <li class="nav-item">
+           <!--  <li class="nav-item">
               <a href="#blog" class="nav-link" data-animate="scrolling">Blog</a>
-            </li>
+            </li> -->
             <li class="nav-item">
               <a href="#contact" class="nav-link" data-animate="scrolling">Contact</a>
             </li>
@@ -200,7 +366,7 @@ rel="stylesheet"
         </div>
         <div class="col-lg-6 offset-lg-1 wow fadeInRight">
           <h1 class="fw-light"></h1>
-          <h5 class="fg-theme mb-3">RUMMA</h5>
+          <h5 class="fg-theme mb-3"></h5>
           <p class="text-muted">Je m'appelle Najat Nasr, développeur Full-stack professionnel avec plus d'un an d'expérience.<br>
              Je suis actif dans ce domaine depuis plus de 4 ans et j'ai travaillé sur divers projets.<br>
 
@@ -227,17 +393,17 @@ rel="stylesheet"
             <!-- <li><b>From:</b> Texas, US</li>
             <li><b>Lives In:</b> Texas, US</li>
             <li><b>Age:</b> 25</li>
+      <div class="row py-3">
+        <div class="col-md-6">
+          <div class="px-lg-3">
             <li><b>Gender:</b> Male</li> -->
           </ul>
-          <button class="btn btn-theme-outline">Télécharger CV</button>
-        </div>
+          <!-- <button class="btn btn-theme-outline">Télécharger CV</button>-->
+        </div> 
       </div>
     </div>
     <div class="container py-5">
       <h1 class="text-center fw-normal wow fadeIn">Mes compétences</h1>
-      <div class="row py-3">
-        <div class="col-md-6">
-          <div class="px-lg-3">
            <h4 class="wow fadeInUp">Programmation</h4> 
             <div class="progress-wrapper wow fadeInUp">
               <span class="caption">JavaScript</span>
@@ -654,37 +820,157 @@ rel="stylesheet"
       <div class="text-center wow fadeInUp">
         <div class="badge badge-subhead">Portfolio</div>
       </div>
-      <h1 class="text-center fw-normal wow fadeInUp">See my work</h1>
-      <div class="filterable-button py-3 wow fadeInUp" data-toggle="selected">
+      <h1 class="text-center fw-normal wow fadeInUp"></h1>
+      <!-- <div class="filterable-button py-3 wow fadeInUp" data-toggle="selected">
         <button class="btn btn-theme-outline selected" data-filter="*">All</button>
-        <button class="btn btn-theme-outline" data-filter=".apps">Apps</button>
+        <button class="btn btn-theme-outline" data-filter=".apps">Apps</button>  
         <button class="btn btn-theme-outline" data-filter=".template">Template</button>
         <button class="btn btn-theme-outline" data-filter=".ios">IOS</button>
         <button class="btn btn-theme-outline" data-filter=".ui-ux">UI/UX</button>
         <button class="btn btn-theme-outline" data-filter=".graphic">Graphic</button>
-        <button class="btn btn-theme-outline" data-filter=".wireframes">Wireframes</button>
+        <button class="btn btn-theme-outline" data-filter=".wireframes">Wireframes</button> -->
       </div>
-
+     
       <div class="gridder my-3">
+       
+        
+        
         <div class="grid-item apps wow zoomIn">
-          <div class="img-place" data-src="../assets/img/work/work-1.jpg" data-fancybox data-caption="<h5 class='fg-theme'>Mobile Travel App</h5> <p>Travel, Discovery</p>">
-            <img src="../assets/img/work/work-1.jpg" alt="">
-            <div class="img-caption">
-              <h5 class="fg-theme">Mobile Travel App</h5>
-              <p>Travel, Discovery</p>
-            </div>
+          <div class="img-place" data-src="https://www.youtube.com/embed/VwgXoOWZlA4?si=PqL1tUKxRsAWvJoN"  data-fancybox data-caption="<h5 class='fg-theme'>Mobile Travel App</h5> <p>Travel, Discovery</p>">
+
+            <iframe width="560" height="340" src="https://www.youtube.com/embed/VwgXoOWZlA4?si=PqL1tUKxRsAWvJoN" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            
           </div>
         </div>
         <div class="grid-item template wireframes wow zoomIn">
-          <div class="img-place" data-src="../assets/img/work/work-2.jpg" data-fancybox data-caption="<h5 class='fg-theme'>Music App</h5> <p>Musics</p>">
-            <img src="../assets/img/work/work-2.jpg" alt="">
+
+
+
+          <section >
+            <div class="container" >
+                <div class="carousel">
+                    <input type="radio" name="slides" checked="checked" id="slide-1">
+                    <input type="radio" name="slides" id="slide-2">
+                    <input type="radio" name="slides" id="slide-3">
+                    <input type="radio" name="slides" id="slide-4">
+                    <input type="radio" name="slides" id="slide-5">
+                    <input type="radio" name="slides" id="slide-6">
+                    <ul class="carousel__slides">
+                        <li class="carousel__slide">
+                            <figure>
+                              <div class="img-place" data-src="../assets/img/app/login.png" data-fancybox data-caption="<h5 class='fg-theme'>Gaming Dashboard</h5> <p>Games, Streaming</p>">
+          
+                                <div>
+                                    <img src="../assets/img/app/login.png" alt="">
+                                </div>
+                                </div>
+                                <!-- <figcaption>
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                    <span class="credit">Photo: Tim Marshall</span>
+                                </figcaption> -->
+                            </figure>
+                        </li>
+                        <li class="carousel__slide">
+                            <figure>
+                              <div class="img-place" data-src="../assets/img/app/l1.PNG" data-fancybox data-caption="<h5 class='fg-theme'>Gaming Dashboard</h5> <p>Games, Streaming</p>">
+          
+                                <div>
+                                    <img src="../assets/img/app/l1.PNG" alt="">
+                                </div> </div>
+                                <!-- <figcaption>
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                    <span class="credit">Photo: Christian Joudrey</span>                            
+                                </figcaption> -->
+                            </figure>
+                        </li>
+                        <li class="carousel__slide">
+                            <figure>
+                              <div class="img-place" data-src="../assets/img/app/l3.PNG" data-fancybox data-caption="<h5 class='fg-theme'>Gaming Dashboard</h5> <p>Games, Streaming</p>">
+          
+                                <div>
+                                    <img src="../assets/img/app/l3.PNG" alt="">
+                                </div>
+                              </div>
+                                <!-- <figcaption>
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                    <span class="credit">Photo: Steve Carter</span>                            
+                                </figcaption> -->
+                            </figure>
+                        </li>
+                        <li class="carousel__slide">
+                            <figure>
+                              <div class="img-place" data-src="../assets/img/app/lp.PNG" data-fancybox data-caption="<h5 class='fg-theme'>Gaming Dashboard</h5> <p>Games, Streaming</p>">
+          
+                                <div>
+                                    <img src="../assets/img/app/lp.PNG" alt="">
+                                </div>
+                              </div>
+                                <!-- <figcaption>
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                    <span class="credit">Photo: Aleksandra Boguslawska</span>                            
+                                </figcaption> -->
+                            </figure>
+                        </li>
+                        <li class="carousel__slide">
+                            <figure>
+                              <div class="img-place" data-src="../assets/img/app/mp.PNG" data-fancybox data-caption="<h5 class='fg-theme'>Gaming Dashboard</h5> <p>Games, Streaming</p>">
+          
+                                <div>
+                                    <img src="../assets/img/app/mp.PNG" alt="">
+                                </div> </div>
+                                <!-- <figcaption>
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                    <span class="credit">Photo: Rosan Harmens</span>                            
+                                </figcaption> -->
+                            </figure>
+                        </li>
+                       
+                    </ul>    
+                    <ul class="carousel__thumbnails">
+                        <li>
+                            <label for="slide-1"><img src="../assets/img/app/login.PNG" alt=""></label>
+                        </li>
+                        <li>
+                            <label for="slide-2"><img src="../assets/img/app/l1.PNG" alt=""></label>
+                        </li>
+                        <li>
+                            <label for="slide-3"><img src="../assets/img/app/l3.PNG" alt=""></label>
+                        </li>
+                        <li>
+                            <label for="slide-4"><img src="../assets/img/app/lp.PNG" alt=""></label>
+                        </li>
+                        <li>
+                            <label for="slide-5"><img src="../assets/img/app/mp.PNG" alt=""></label>
+                        </li>
+                        <!-- <li>
+                            <label for="slide-6"><img src="https://picsum.photos/id/1052/150/150" alt=""></label>
+                        </li> -->
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <div class="img-caption" style="width:90%">
+          <h5 class="fg-theme"></h5>
+          <p>App – Centre Formation</p>
+        </div>
+          <!-- <div class="img-place" data-src=../assets/img/app/login.png data-fancybox data-caption="<h5 class='fg-theme'>Music App</h5> <p>Musics</p>">
+            <img src=../assets/img/app/login.png alt="">
             <div class="img-caption">
-              <h5 class="fg-theme">Music App</h5>
-              <p>Musics</p>
+              <h5 class="fg-theme">Login</h5>
+              <p>Login</p>
+            </div>
+          </div> -->
+        </div>
+        <div class="grid-item apps wow zoomIn">
+          <div class="img-place" data-src="../assets/img/app/erp--crm.png" data-fancybox data-caption="<h5 class='fg-theme'>Mobile Travel App</h5> <p>Travel, Discovery</p>">
+            <img src="../assets/img/app/erp.png" alt="">
+            <div class="img-caption">
+              <h5 class="fg-theme"></h5>
+              <p>ERP et CRM</p>
             </div>
           </div>
         </div>
-        <div class="grid-item apps ios wow zoomIn">
+       <!--  <div class="grid-item apps ios wow zoomIn">
           <div class="img-place" data-src="../assets/img/work/work-3.jpg" data-fancybox data-caption="<h5 class='fg-theme'>Gaming Dashboard</h5> <p>Games, Streaming</p>">
             <img src="../assets/img/work/work-3.jpg" alt="">
             <div class="img-caption">
@@ -719,16 +1005,16 @@ rel="stylesheet"
               <p>Games, Streaming</p>
             </div>
           </div>
-        </div>
+        </div> -->
       </div> <!-- End gridder -->
-      <div class="text-center wow fadeInUp">
+     <!--  <div class="text-center wow fadeInUp">
         <a href="javascript:void(0)" class="btn btn-theme">Load More</a>
-      </div>
+      </div> -->
     </div>
   </div> <!-- End Portfolio page -->
   
   <!-- Testimonial -->
-  <div class="vg-page page-testimonial">
+  <!-- <div class="vg-page page-testimonial">
     <div class="container">
       <h1 class="text-center fw-normal wow fadeInUp">What Clients are Saying</h1>
       <div class="row justify-content-center mt-5 wow fadeInUp">
@@ -784,10 +1070,11 @@ rel="stylesheet"
         </div>
       </div>
     </div>
-  </div> <!-- End testimonial -->
+  </div> -->
+   <!-- End testimonial -->
   
   <!-- Client -->
-  <div class="vg-page page-client">
+  <!-- <div class="vg-page page-client">
     <div class="container">
       <div class="row">
         <div class="col-md-6 col-lg-4 col-xl-3 item">
@@ -834,10 +1121,11 @@ rel="stylesheet"
         </div>
       </div>
     </div>
-  </div> <!-- End client -->
+  </div> -->
+   <!-- End client -->
   
   <!-- Blog -->
-  <div class="vg-page page-blog" id="blog">
+  <!-- <div class="vg-page page-blog" id="blog">
     <div class="container">
       <div class="text-center">
         <div class="badge badge-subhead wow fadeInUp">Blog</div>
@@ -885,7 +1173,7 @@ rel="stylesheet"
         </div>
       </div>
     </div>
-  </div> <!-- End blog -->
+  </div> --> <!-- End blog -->
   
   <!-- Contact -->
   <div class="vg-page page-contact" id="contact">
